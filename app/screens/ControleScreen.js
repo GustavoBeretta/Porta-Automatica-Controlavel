@@ -5,7 +5,6 @@ const ControleScreen = () => {
   const [limiar, setLimiar] = useState('');
 
   const handleEnviar = async () => {
-    // Verifica se o valor de 'limiar' é um número válido e não é negativo
     const limiarValor = parseFloat(limiar);
     if (isNaN(limiarValor) || limiarValor < 0) {
       Alert.alert('Erro', 'Por favor, insira um valor válido.');
@@ -13,7 +12,7 @@ const ControleScreen = () => {
     }
 
     try {
-      const response = await fetch('http://192.168.0.160:8000/controle', {
+      const response = await fetch('http://192.168.194.137:8000/controle', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

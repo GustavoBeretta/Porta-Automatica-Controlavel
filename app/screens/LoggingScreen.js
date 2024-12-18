@@ -6,7 +6,7 @@ const LoggingScreen = () => {
 
   const fetchRegistros = useCallback(async () => {
     try {
-      const response = await fetch('http://192.168.0.160:8000/logging');
+      const response = await fetch('http://192.168.194.137:8000/logging');
       if (response.ok) {
         const data = await response.json();
         setRegistros(data);
@@ -30,7 +30,7 @@ const LoggingScreen = () => {
         {registros.slice().reverse().map((registro, index) => (
           <View key={index} style={styles.card}>
             <Text style={styles.cardText}>Data/Hora: {registro.datahora}</Text>
-            <Text style={styles.cardText}>Limiar: {registro.limiar}</Text>
+            <Text style={styles.cardText}>Distância: {registro.distancia}</Text>
           </View>
         ))}
       </ScrollView>

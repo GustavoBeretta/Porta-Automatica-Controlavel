@@ -6,7 +6,7 @@ const ControleScreen = () => {
 
   const fetchRegistros = useCallback(async () => {
     try {
-      const response = await fetch('http://192.168.0.160:8000/controle');
+      const response = await fetch('http://192.168.194.137:8000/controle');
       if (response.ok) {
         const data = await response.json();
         setRegistros(data);

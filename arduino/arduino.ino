@@ -1,19 +1,19 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include <Servo.h>
+#include <ESP32Servo.h>
 
-const int trigPin = 7;
-const int echoPin = 8;
+const int trigPin = 34;
+const int echoPin = 35;
 Servo servoMotor;
 
 const char* ssid = "S22+ de Gustavo";
 const char* password = "12345678";
-const String serverURL = "http://192.168.0.160:8000/logging";
+const String serverURL = "http://192.168.194.137:8000/logging";
 
 void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  servoMotor.attach(9);
+  servoMotor.attach(32);
   servoMotor.write(0);
   Serial.begin(115200);
 
@@ -27,7 +27,7 @@ void setup() {
 }
 
 void loop() {
-  int distanciaLimite = 20;
+  int distanciaLimite = 10;
 
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
