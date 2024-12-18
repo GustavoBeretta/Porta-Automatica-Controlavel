@@ -6,14 +6,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-let porta = 8080;
+let porta = 8090;
 app.listen(porta, () => {
  console.log('Servidor em execução na porta: ' + porta);
 });
 
 const sqlite3 = require('sqlite3');
 
-var db = new sqlite3.Database('./controle.db', (err) => {
+var db = new sqlite3.Database('./logging.db', (err) => {
         if (err) {
             console.log('ERRO: não foi possível conectar ao SQLite.');
             throw err;
@@ -21,8 +21,8 @@ var db = new sqlite3.Database('./controle.db', (err) => {
         console.log('Conectado ao SQLite!');
     });
 
-db.run(`CREATE TABLE IF NOT EXISTS controle
-        (datahora TEXT DEFAULT CURRENT_TIMESTAMP PRIMARY KEY, limiar TEXT NOT NULL)`, 
+db.run(`CREATE TABLE IF NOT EXISTS logging
+        (datahora TEXT DEFAULT CURRENT_TIMESTAMP PRIMARY KEY, distancia TEXT NOT NULL)`, 
         [], (err) => {
            if (err) {
               console.log('ERRO: não foi possível criar tabela.');
@@ -30,9 +30,9 @@ db.run(`CREATE TABLE IF NOT EXISTS controle
            }
       });    
 
-app.post('/controle', (req, res, next) => {
-    db.run(`INSERT INTO controle(limiar) VALUES(?)`, 
-         [req.body.limiar], (err) => {
+app.post('/logging', (req, res, next) => {
+    db.run(`INSERT INTO logging(distancia) VALUES(?)`, 
+         [req.body.distancia], (err) => {
         if (err) {
             console.log("Error: " + err);
             res.status(500).send('Erro ao fazer o registro.');
@@ -44,8 +44,8 @@ app.post('/controle', (req, res, next) => {
 });
 
 
-app.get('/controle', (req, res, next) => {
-    db.all(`SELECT * FROM controle`, [], (err, result) => {
+app.get('/logging', (req, res, next) => {
+    db.all(`SELECT * FROM logging`, [], (err, result) => {
         if (err) {
              console.log("Erro: " + err);
              res.status(500).send('Erro ao obter dados.');
